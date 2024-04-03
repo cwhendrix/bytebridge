@@ -1,6 +1,5 @@
 package byteBridge;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class Person extends Entity

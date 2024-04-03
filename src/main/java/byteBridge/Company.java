@@ -2,8 +2,6 @@ package byteBridge;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-import byteBridge.Entity.Entities;
-
 public class Company extends Entity
 {
 

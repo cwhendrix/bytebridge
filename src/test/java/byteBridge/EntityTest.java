@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import byteBridge.Entity.Entities;
+import byteBridge.Page.Permissions;
 
 class EntityTest
 {
@@ -38,6 +39,7 @@ class EntityTest
 	News CNews;
 	News TNews;
 	News LNews;
+	String temp;
 	
 	@BeforeEach
 	void setUp() throws Exception
@@ -109,6 +111,58 @@ class EntityTest
 		String Lemployer = L.links.get(Entities.EMPLOYER).get(0).name;
 		assertEquals(Lemployer, "Linux Foundation");
 		
+		//// Company Tests ////
+		CC.addEmployee(C);
+		String CCemployee = CC.links.get(Entities.EMPLOYEES).get(0).name;
+		assertEquals(CCemployee, "Cooper Hendrix");
+		CC.removeEmployee(C);
+		assertThrows(IndexOutOfBoundsException.class, 
+				()-> {
+					temp = CC.links.get(Entities.EMPLOYEES).get(0).name;
+				});
+		CC.addProject(VE);
+		String CCproject = CC.links.get(Entities.PROJECT).get(0).name;
+		assertEquals(CCproject, "Virtual Exhibition");
+		CC.removeProject(VE);
+		assertThrows(IndexOutOfBoundsException.class, 
+				()-> {
+					temp = CC.links.get(Entities.PROJECT).get(0).name;
+				});
+		
+		BP.addEmployee(T);
+		String BPemployee = BP.links.get(Entities.EMPLOYEES).get(0).name;
+		assertEquals(BPemployee, "Alan Turing");
+		BP.removeEmployee(T);
+		assertThrows(IndexOutOfBoundsException.class, 
+				()-> {
+					temp = BP.links.get(Entities.EMPLOYEES).get(0).name;
+				});
+		BP.addProject(Bombe);
+		String BPproject = BP.links.get(Entities.PROJECT).get(0).name;
+		assertEquals(BPproject, "Bombe Enigma Decoder");
+		BP.removeProject(Bombe);
+		assertThrows(IndexOutOfBoundsException.class, 
+				()-> {
+					temp = BP.links.get(Entities.PROJECT).get(0).name;
+				});
+		
+		LF.addEmployee(L);
+		String LFemployee = LF.links.get(Entities.EMPLOYEES).get(0).name;
+		assertEquals(LFemployee, "Linus Torvalds");
+		LF.removeEmployee(L);
+		assertThrows(IndexOutOfBoundsException.class, 
+				()-> {
+					temp = LF.links.get(Entities.EMPLOYEES).get(0).name;
+				});
+		LF.addProject(LK);
+		String LFproject = LF.links.get(Entities.PROJECT).get(0).name;
+		assertEquals(LFproject, "Linux Kernel");
+		LF.removeProject(LK);
+		assertThrows(IndexOutOfBoundsException.class, 
+				()-> {
+					temp = LF.links.get(Entities.PROJECT).get(0).name;
+				});
+		
 		//// Post Tests ////
 		C.post(CNews);
 		String CNewsName = C.links.get(Entities.NEWS).get(0).name;
@@ -129,7 +183,7 @@ class EntityTest
 		C.removeSkill(Cello);
 		assertThrows(IndexOutOfBoundsException.class, 
 				()-> {
-					String temp = C.links.get(Entities.SKILL).get(0).name;
+					temp = C.links.get(Entities.SKILL).get(0).name;
 				});
 		
 		T.addSkill(Cryptography);
@@ -138,7 +192,7 @@ class EntityTest
 		T.removeSkill(Cryptography);
 		assertThrows(IndexOutOfBoundsException.class, 
 				()-> {
-					String temp = T.links.get(Entities.SKILL).get(0).name;
+					temp = T.links.get(Entities.SKILL).get(0).name;
 				});
 		
 		L.addSkill(SoftwareDev);
@@ -147,7 +201,7 @@ class EntityTest
 		L.removeSkill(SoftwareDev);
 		assertThrows(IndexOutOfBoundsException.class, 
 				()-> {
-					String temp = L.links.get(Entities.SKILL).get(0).name;
+					temp = L.links.get(Entities.SKILL).get(0).name;
 				});
 		
 		//// Projects Tests ////
@@ -159,7 +213,7 @@ class EntityTest
 		C.removeProject(VE);
 		assertThrows(IndexOutOfBoundsException.class,
 				()-> {
-					String temp = C.links.get(Entities.PROJECT).get(0).name;
+					temp = C.links.get(Entities.PROJECT).get(0).name;
 				});
 		
 		T.addProject(Bombe);
@@ -170,7 +224,7 @@ class EntityTest
 		T.removeProject(Bombe);
 		assertThrows(IndexOutOfBoundsException.class,
 				()-> {
-					String temp = T.links.get(Entities.PROJECT).get(0).name;
+					temp = T.links.get(Entities.PROJECT).get(0).name;
 				});
 		
 		L.addProject(LK);
@@ -181,7 +235,7 @@ class EntityTest
 		L.removeProject(LK);
 		assertThrows(IndexOutOfBoundsException.class,
 				()-> {
-					String temp = L.links.get(Entities.PROJECT).get(0).name;
+					temp = L.links.get(Entities.PROJECT).get(0).name;
 				});
 		
 		//// Apply & Job Posting Tests ////
@@ -197,7 +251,7 @@ class EntityTest
 		CC.removeJobPosting(CCJob);
 		assertThrows(IndexOutOfBoundsException.class,
 				()-> {
-					String temp = CC.links.get(Entities.JOBPOSTING).get(0).name;
+					temp = CC.links.get(Entities.JOBPOSTING).get(0).name;
 				});
 		
 		BP.addJobPosting(BPJob);
@@ -212,7 +266,7 @@ class EntityTest
 		BP.removeJobPosting(BPJob);
 		assertThrows(IndexOutOfBoundsException.class,
 				()-> {
-					String temp = BP.links.get(Entities.JOBPOSTING).get(0).name;
+					temp = BP.links.get(Entities.JOBPOSTING).get(0).name;
 				});
 		
 		LF.addJobPosting(LFJob);
@@ -227,9 +281,20 @@ class EntityTest
 		LF.removeJobPosting(LFJob);
 		assertThrows(IndexOutOfBoundsException.class,
 				()-> {
-					String temp = LF.links.get(Entities.JOBPOSTING).get(0).name;
+					temp = LF.links.get(Entities.JOBPOSTING).get(0).name;
 				});
 		
+		//// Page Permissions Testing ////
+		CPage.addPermission(C);
+		String CPagePermission = CPage.permissions.get(Permissions.WRITE).get(0).name;
+		assertEquals(CPagePermission, "Cooper Hendrix");
+		assertEquals(CPage.hasPermission(C), true);
+		CPage.removePermission(C);
+		assertEquals(CPage.hasPermission(C), false);
+		assertThrows(IndexOutOfBoundsException.class,
+				()-> {
+					temp = CPage.permissions.get(Permissions.WRITE).get(0).name;
+				});
 	}
 
 }

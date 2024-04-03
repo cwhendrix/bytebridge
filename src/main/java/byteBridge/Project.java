@@ -1,6 +1,4 @@
 package byteBridge;
-import java.util.ArrayList;
-import java.util.Dictionary;
 
 public class Project extends Entity
 {

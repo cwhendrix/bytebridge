@@ -1,8 +1,5 @@
 package byteBridge;
 
-import java.util.ArrayList;
-
-import byteBridge.Entity.Entities;
 
 public class Skill extends Entity
 {
