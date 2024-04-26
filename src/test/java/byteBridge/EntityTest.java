@@ -40,6 +40,7 @@ class EntityTest
 	News TNews;
 	News LNews;
 	String temp;
+	ServerHandler server;
 	
 	@BeforeEach
 	void setUp() throws Exception
@@ -81,10 +82,12 @@ class EntityTest
 		TNews = new News("2", "Cracked Enigma Code", null);
 		LNews = new News("3", "Made Linux Kernel", null);
 		
+		server = new ServerHandler();
+		
 	}
 
 	@Test
-	void test()
+	void test() throws Exception
 	{
 		//// Profile Tests ////
 		assertEquals(C.name, "Cooper Hendrix");
@@ -98,6 +101,7 @@ class EntityTest
 		C.followPerson(L);
 		Cfollow = C.links.get(Entities.FOLLOWING).get(1).name;
 		assertEquals(Cfollow, "Linus Torvalds");
+		
 		
 		assertEquals(T.name, "Alan Turing");
 		assertEquals(T.page.description, "Alan Turing's Profile");
@@ -295,6 +299,9 @@ class EntityTest
 				()-> {
 					temp = CPage.permissions.get(Permissions.WRITE).get(0).name;
 				});
+		
+		String storeconfirm = C.storeData(server.client, server.uriBase);
+		System.out.println(storeconfirm);
 	}
 
 }

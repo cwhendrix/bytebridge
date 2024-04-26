@@ -1,10 +1,14 @@
 package byteBridge;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import org.springframework.web.client.RestClient;
+import org.springframework.http.MediaType;
 
 public class Person extends Entity
 {
 	String occupation;
+	
+	public Person() {}
 	
 	public Person(String id, String name, Page page, String occupation)
 	{
@@ -53,6 +57,34 @@ public class Person extends Entity
 	public void followCompany(Company newCompany) {
 		ArrayList<Entity> following = links.get(Entities.FOLLOWING);
 		following.add(newCompany);
+	}
+	public String storeData(RestClient client, String uriBase) {
+		String personpost = client.post()
+			.uri("http://localhost:9000/v1/byteBridge/Person/"+this.id)
+			.contentType(MediaType.APPLICATION_JSON)
+			.body(this)
+			.retrieve()
+			.body(String.class);
+		return personpost;
+	}
+	public void retrieveData(RestClient client, String uriBase) {
+		
+	}
+
+	/**
+	 * @return the occupation
+	 */
+	public String getOccupation()
+	{
+		return occupation;
+	}
+
+	/**
+	 * @param occupation the occupation to set
+	 */
+	public void setOccupation(String occupation)
+	{
+		this.occupation = occupation;
 	}
 
 }
