@@ -2,7 +2,9 @@ package byteBridge;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class Page
 {
@@ -12,7 +14,7 @@ public class Page
 	String id;
 	String description;
 	Entity entity;
-	Dictionary<Permissions, ArrayList<String>> permissions;
+	Map<Permissions, ArrayList<String>> permissions;
 	
 	public Page() {}
 	
@@ -20,7 +22,7 @@ public class Page
 	{
 		this.description = description;
 		this.entity = entity;
-		permissions = new Hashtable<Permissions, ArrayList<String>>();
+		permissions = new HashMap<Permissions, ArrayList<String>>();
 		for (Permissions permission : Permissions.values()) { 
 			ArrayList<String> temp = new ArrayList<String>();
 			permissions.put(permission, temp);
@@ -99,7 +101,7 @@ public class Page
 	/**
 	 * @return the permissions
 	 */
-	public Dictionary<Permissions, ArrayList<String>> getPermissions()
+	public Map<Permissions, ArrayList<String>> getPermissions()
 	{
 		return permissions;
 	}
@@ -107,7 +109,7 @@ public class Page
 	/**
 	 * @param permissions the permissions to set
 	 */
-	public void setPermissions(Dictionary<Permissions, ArrayList<String>> permissions)
+	public void setPermissions(Map<Permissions, ArrayList<String>> permissions)
 	{
 		this.permissions = permissions;
 	}

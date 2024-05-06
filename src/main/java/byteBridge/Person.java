@@ -1,5 +1,6 @@
 package byteBridge;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import org.springframework.web.client.RestClient;
 
@@ -27,11 +28,13 @@ public class Person extends Entity
 		this.name = name;
 		this.page = page;
 		this.occupation = occupation;
-		links = new Hashtable<Entities, ArrayList<String>>();
+		links = new HashMap<Entities, ArrayList<String>>();
 		for (Entities link : Entities.values()) { 
 			ArrayList<String> temp = new ArrayList<String>();
 			links.put(link, temp);
 		}
+		ByteBridgeState instance = ByteBridgeState.getInstance();
+		instance.newPerson(this);
 	}
 	
 	public void addSkill(Skill newSkill) {
@@ -78,6 +81,15 @@ public class Person extends Entity
 			.body(String.class);
 		return personpost;
 	}
+	public String updateData(RestClient client) {
+		String personpost = client.put()
+				.uri("http://localhost:9000/v1/byteBridge/Person/"+this.id)
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(this)
+				.retrieve()
+				.body(String.class);
+			return personpost;
+	}
 	public void retrieveData(RestClient client) {
 		Response retrieved = client.get()
 				.uri("http://localhost:9000/v1/byteBridge/Person/"+this.id)
@@ -85,12 +97,17 @@ public class Person extends Entity
 				.body(Response.class);
 		System.out.println(retrieved.data);
 		ObjectMapper objectmapper = new ObjectMapper();
-		
+		Person newPerson = null;
 		try
 		{
-			//Person newPerson = objectmapper.treeToValue(retrieved.data, Person.class);
-			Person newPerson = objectmapper.readValue(retrieved.data.asText(), Person.class);
-			System.out.println(newPerson.id);
+			newPerson = objectmapper.treeToValue(retrieved.data, Person.class);
+			// System.out.println(newPerson.id);
+			setId(newPerson.getId());
+			// System.out.println(this.id);
+			setName(newPerson.getName());
+			setOccupation(newPerson.getOccupation());
+			setLinks(newPerson.getLinks());
+			setPage(newPerson.getPage());
 		} catch (JsonMappingException e)
 		{
 			// TODO Auto-generated catch block

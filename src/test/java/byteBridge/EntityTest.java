@@ -1,14 +1,18 @@
 package byteBridge;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
 
 import byteBridge.Entity.Entities;
 import byteBridge.Page.Permissions;
 
 class EntityTest
 {
+	ByteBridgeState byteBridge;
 	Person C;
 	Person T;
 	Person L;
@@ -47,12 +51,14 @@ class EntityTest
 	@BeforeEach
 	void setUp() throws Exception
 	{
+		byteBridge = ByteBridgeState.getInstance();
+		
 		CPage = new Page("Cooper Hendrix's Profile", null);
 		C = new Person("1", "Cooper Hendrix", CPage, "Student");
 		TPage = new Page("Alan Turing's Profile", null);
 		T = new Person("2", "Alan Turing", TPage, "Theoretical Computer Scientist");
 		LPage = new Page("Linus Torvalds' Profile", null);
-		L = new Person("3", "Linus Torvalds", LPage, "Software Engineer");
+		L = new Person("3", "Linus Torvalds", LPage, "Linux Kernel Developer");
 		
 		CCPage = new Page("Centre College's Profile", null);
 		CC = new Company("1", "Centre College", CCPage);
@@ -100,9 +106,9 @@ class EntityTest
 		C.setEmployer(CC);
 		String Cemployer = C.links.get(Entities.EMPLOYER).get(0);
 		assertEquals(Cemployer, "1");
-		C.followCompany(LF);
+		C.followCompany(BP);
 		String Cfollow = C.links.get(Entities.FOLLOWING).get(0);
-		assertEquals(Cfollow, "3");
+		assertEquals(Cfollow, "2");
 		C.followPerson(L);
 		Cfollow = C.links.get(Entities.FOLLOWING).get(1);
 		assertEquals(Cfollow, "3");
@@ -300,8 +306,9 @@ class EntityTest
 				});
 		
 		
-		
+		//// REST Testing ////
 		String storeconfirm = C.storeData(server.client);
+		storeconfirm = C.storeData(server.client);
 		System.out.println(storeconfirm);
 		storeconfirm = CC.storeData(server.client);
 		System.out.println(storeconfirm);
@@ -315,6 +322,71 @@ class EntityTest
 		System.out.println(storeconfirm);
 		
 		C.retrieveData(server.client);
+		C.setId("15");
+		C.updateData(server.client);
+		C.setId("1");
+		C.updateData(server.client);
+		
+		CC.retrieveData(server.client);
+		CC.setId("15");
+		CC.updateData(server.client);
+		CC.setId("1");
+		CC.updateData(server.client);
+		
+		CCJob.retrieveData(server.client);
+		CCJob.setId("15");
+		CCJob.updateData(server.client);
+		CCJob.setId("1");
+		CCJob.updateData(server.client);
+		
+		CNews.retrieveData(server.client);
+		CNews.setId("15");
+		CNews.updateData(server.client);
+		CNews.setId("1");
+		CNews.updateData(server.client);
+		
+		VE.retrieveData(server.client);
+		VE.setId("15");
+		VE.updateData(server.client);
+		VE.setId("1");
+		VE.updateData(server.client);
+		
+		Cello.retrieveData(server.client);
+		Cello.setId("15");
+		Cello.updateData(server.client);
+		Cello.setId("1");
+		Cello.updateData(server.client);
+		
+		
+		//// Job Recommender Testing ////
+		CCJob.recommender.setEveryone(true);
+		CCJob.recommender.addRecommendations();
+		ArrayList<String> CCJobRecommends = CCJob.recommender.recommended;
+		assertEquals("1", CCJobRecommends.get(0));
+		assertEquals("2", CCJobRecommends.get(1));
+		assertEquals("3", CCJobRecommends.get(2));
+		
+		BPJob.addSkills(Cryptography.id);
+		T.addSkill(Cryptography);
+		BPJob.recommender.setSkills(true);
+		BPJob.recommender.setEveryone(false);
+		BPJob.recommender.addRecommendations();
+		ArrayList<String> BPJobRecommends = BPJob.recommender.recommended;
+		assertEquals("2", BPJobRecommends.get(0));
+		assertThrows(IndexOutOfBoundsException.class,
+				()-> {
+					temp = BPJobRecommends.get(1);
+				});
+		
+		LFJob.recommender.setEveryone(false);
+		LFJob.recommender.setTitle(true);
+		LFJob.recommender.addRecommendations();
+		ArrayList<String> LFJobRecommends = LFJob.recommender.recommended;
+		assertEquals("3", LFJobRecommends.get(0));
+		assertThrows(IndexOutOfBoundsException.class,
+				()-> {
+					temp = LFJobRecommends.get(1);
+				});
 	}
 
 }

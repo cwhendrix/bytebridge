@@ -1,12 +1,15 @@
 package byteBridge;
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public class Entity
 {
+	
 	enum Entities {
 	    FOLLOWING,
 	    COMPANY,
@@ -22,7 +25,7 @@ public class Entity
 	String id;
 	String name;
 	Page page;
-	Dictionary<Entities, ArrayList<String>> links;
+	Map<Entities, ArrayList<String>> links;
 	
 	public Entity() {}
 	
@@ -30,6 +33,9 @@ public class Entity
 		
 	}
 	public void storeData() {
+		
+	}
+	public void updateData() {
 		
 	}
 	/**
@@ -77,14 +83,14 @@ public class Entity
 	/**
 	 * @return the links
 	 */
-	public Dictionary<Entities, ArrayList<String>> getLinks()
+	public Map<Entities, ArrayList<String>> getLinks()
 	{
 		return links;
 	}
 	/**
 	 * @param links the links to set
 	 */
-	public void setLinks(Dictionary<Entities, ArrayList<String>> links)
+	public void setLinks(Map<Entities, ArrayList<String>> links)
 	{
 		this.links = links;
 	}
