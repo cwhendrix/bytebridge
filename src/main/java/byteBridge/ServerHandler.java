@@ -30,6 +30,45 @@ public class ServerHandler
 				.retrieve()
 				.body(String.class);
 		
+		Team Company = new Team("Company", "Company", uriBase+"/Company");
+		String teampost = client.post()
+				.uri(uriBase+"/Company")
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(Company)
+				.retrieve()
+				.body(String.class);
+		
+		Team Project = new Team("Project", "Project", uriBase+"/Project");
+		String projectpost = client.post()
+				.uri(uriBase+"/Project")
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(Project)
+				.retrieve()
+				.body(String.class);
+		
+		Team JobPosting = new Team("JobPosting", "JobPosting", uriBase+"/JobPosting");
+		String jobpost = client.post()
+				.uri(uriBase+"/JobPosting")
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(JobPosting)
+				.retrieve()
+				.body(String.class);
+		
+		Team News = new Team("News", "News", uriBase+"/News");
+		String newspost = client.post()
+				.uri(uriBase+"/News")
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(News)
+				.retrieve()
+				.body(String.class);
+		
+		Team Skill = new Team("Skill", "Skill", uriBase+"/Skill");
+		String skillpost = client.post()
+				.uri(uriBase+"/Skill")
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(Skill)
+				.retrieve()
+				.body(String.class);
 	}
 	public void storeByteBridge() {
 		

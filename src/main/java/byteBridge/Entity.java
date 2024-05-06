@@ -2,6 +2,9 @@ package byteBridge;
 import java.util.ArrayList;
 import java.util.Dictionary;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+
 public class Entity
 {
 	enum Entities {
@@ -19,7 +22,7 @@ public class Entity
 	String id;
 	String name;
 	Page page;
-	Dictionary<Entities, ArrayList<Entity>> links;
+	Dictionary<Entities, ArrayList<String>> links;
 	
 	public Entity() {}
 	
@@ -74,14 +77,14 @@ public class Entity
 	/**
 	 * @return the links
 	 */
-	public Dictionary<Entities, ArrayList<Entity>> getLinks()
+	public Dictionary<Entities, ArrayList<String>> getLinks()
 	{
 		return links;
 	}
 	/**
 	 * @param links the links to set
 	 */
-	public void setLinks(Dictionary<Entities, ArrayList<Entity>> links)
+	public void setLinks(Dictionary<Entities, ArrayList<String>> links)
 	{
 		this.links = links;
 	}

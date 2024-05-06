@@ -12,9 +12,11 @@ class EntityTest
 	Person C;
 	Person T;
 	Person L;
+	Person RESTTest;
 	Page CPage;
 	Page TPage;
 	Page LPage;
+	Page TestPage;
 	Company CC;
 	Company BP;
 	Company LF;
@@ -82,6 +84,9 @@ class EntityTest
 		TNews = new News("2", "Cracked Enigma Code", null);
 		LNews = new News("3", "Made Linux Kernel", null);
 		
+		TestPage = new Page("Test Page", null);
+		RESTTest = new Person("4", "Person", TestPage, "Occupation");
+		
 		server = new ServerHandler();
 		
 	}
@@ -93,215 +98,223 @@ class EntityTest
 		assertEquals(C.name, "Cooper Hendrix");
 		assertEquals(C.page.description, "Cooper Hendrix's Profile");
 		C.setEmployer(CC);
-		String Cemployer = C.links.get(Entities.EMPLOYER).get(0).name;
-		assertEquals(Cemployer, "Centre College");
+		String Cemployer = C.links.get(Entities.EMPLOYER).get(0);
+		assertEquals(Cemployer, "1");
 		C.followCompany(LF);
-		String Cfollow = C.links.get(Entities.FOLLOWING).get(0).name;
-		assertEquals(Cfollow, "Linux Foundation");
+		String Cfollow = C.links.get(Entities.FOLLOWING).get(0);
+		assertEquals(Cfollow, "3");
 		C.followPerson(L);
-		Cfollow = C.links.get(Entities.FOLLOWING).get(1).name;
-		assertEquals(Cfollow, "Linus Torvalds");
+		Cfollow = C.links.get(Entities.FOLLOWING).get(1);
+		assertEquals(Cfollow, "3");
 		
 		
 		assertEquals(T.name, "Alan Turing");
 		assertEquals(T.page.description, "Alan Turing's Profile");
 		T.setEmployer(BP);
-		String Temployer = T.links.get(Entities.EMPLOYER).get(0).name;
-		assertEquals(Temployer, "Bletchley Park");
+		String Temployer = T.links.get(Entities.EMPLOYER).get(0);
+		assertEquals(Temployer, "2");
 		
 		assertEquals(L.name, "Linus Torvalds");
 		assertEquals(L.page.description, "Linus Torvalds' Profile");
 		L.setEmployer(LF);
-		String Lemployer = L.links.get(Entities.EMPLOYER).get(0).name;
-		assertEquals(Lemployer, "Linux Foundation");
+		String Lemployer = L.links.get(Entities.EMPLOYER).get(0);
+		assertEquals(Lemployer, "3");
 		
 		//// Company Tests ////
 		CC.addEmployee(C);
-		String CCemployee = CC.links.get(Entities.EMPLOYEES).get(0).name;
-		assertEquals(CCemployee, "Cooper Hendrix");
+		String CCemployee = CC.links.get(Entities.EMPLOYEES).get(0);
+		assertEquals(CCemployee, "1");
 		CC.removeEmployee(C);
 		assertThrows(IndexOutOfBoundsException.class, 
 				()-> {
-					temp = CC.links.get(Entities.EMPLOYEES).get(0).name;
+					temp = CC.links.get(Entities.EMPLOYEES).get(0);
 				});
 		CC.addProject(VE);
-		String CCproject = CC.links.get(Entities.PROJECT).get(0).name;
-		assertEquals(CCproject, "Virtual Exhibition");
+		String CCproject = CC.links.get(Entities.PROJECT).get(0);
+		assertEquals(CCproject, "1");
 		CC.removeProject(VE);
 		assertThrows(IndexOutOfBoundsException.class, 
 				()-> {
-					temp = CC.links.get(Entities.PROJECT).get(0).name;
+					temp = CC.links.get(Entities.PROJECT).get(0);
 				});
 		
 		BP.addEmployee(T);
-		String BPemployee = BP.links.get(Entities.EMPLOYEES).get(0).name;
-		assertEquals(BPemployee, "Alan Turing");
+		String BPemployee = BP.links.get(Entities.EMPLOYEES).get(0);
+		assertEquals(BPemployee, "2");
 		BP.removeEmployee(T);
 		assertThrows(IndexOutOfBoundsException.class, 
 				()-> {
-					temp = BP.links.get(Entities.EMPLOYEES).get(0).name;
+					temp = BP.links.get(Entities.EMPLOYEES).get(0);
 				});
 		BP.addProject(Bombe);
-		String BPproject = BP.links.get(Entities.PROJECT).get(0).name;
-		assertEquals(BPproject, "Bombe Enigma Decoder");
+		String BPproject = BP.links.get(Entities.PROJECT).get(0);
+		assertEquals(BPproject, "2");
 		BP.removeProject(Bombe);
 		assertThrows(IndexOutOfBoundsException.class, 
 				()-> {
-					temp = BP.links.get(Entities.PROJECT).get(0).name;
+					temp = BP.links.get(Entities.PROJECT).get(0);
 				});
 		
 		LF.addEmployee(L);
-		String LFemployee = LF.links.get(Entities.EMPLOYEES).get(0).name;
-		assertEquals(LFemployee, "Linus Torvalds");
+		String LFemployee = LF.links.get(Entities.EMPLOYEES).get(0);
+		assertEquals(LFemployee, "3");
 		LF.removeEmployee(L);
 		assertThrows(IndexOutOfBoundsException.class, 
 				()-> {
-					temp = LF.links.get(Entities.EMPLOYEES).get(0).name;
+					temp = LF.links.get(Entities.EMPLOYEES).get(0);
 				});
 		LF.addProject(LK);
-		String LFproject = LF.links.get(Entities.PROJECT).get(0).name;
-		assertEquals(LFproject, "Linux Kernel");
+		String LFproject = LF.links.get(Entities.PROJECT).get(0);
+		assertEquals(LFproject, "3");
 		LF.removeProject(LK);
 		assertThrows(IndexOutOfBoundsException.class, 
 				()-> {
-					temp = LF.links.get(Entities.PROJECT).get(0).name;
+					temp = LF.links.get(Entities.PROJECT).get(0);
 				});
 		
 		//// Post Tests ////
 		C.post(CNews);
-		String CNewsName = C.links.get(Entities.NEWS).get(0).name;
-		assertEquals(CNewsName, "Performed At Norton Center");
+		String CNewsName = C.links.get(Entities.NEWS).get(0);
+		assertEquals(CNewsName, "1");
 		
 		T.post(TNews);
-		String TNewsName = T.links.get(Entities.NEWS).get(0).name;
-		assertEquals(TNewsName, "Cracked Enigma Code");
+		String TNewsName = T.links.get(Entities.NEWS).get(0);
+		assertEquals(TNewsName, "2");
 		
 		L.post(LNews);
-		String LNewsName = L.links.get(Entities.NEWS).get(0).name;
-		assertEquals(LNewsName, "Made Linux Kernel");
+		String LNewsName = L.links.get(Entities.NEWS).get(0);
+		assertEquals(LNewsName, "3");
 		
 		//// Skills Tests ////
 		C.addSkill(Cello);
-		String Cskill = C.links.get(Entities.SKILL).get(0).name;
-		assertEquals(Cskill, "Cello Performance");
+		String Cskill = C.links.get(Entities.SKILL).get(0);
+		assertEquals(Cskill, "1");
 		C.removeSkill(Cello);
 		assertThrows(IndexOutOfBoundsException.class, 
 				()-> {
-					temp = C.links.get(Entities.SKILL).get(0).name;
+					temp = C.links.get(Entities.SKILL).get(0);
 				});
 		
 		T.addSkill(Cryptography);
-		String Tskill = T.links.get(Entities.SKILL).get(0).name;
-		assertEquals(Tskill, "Cryptography");
+		String Tskill = T.links.get(Entities.SKILL).get(0);
+		assertEquals(Tskill, "3");
 		T.removeSkill(Cryptography);
 		assertThrows(IndexOutOfBoundsException.class, 
 				()-> {
-					temp = T.links.get(Entities.SKILL).get(0).name;
+					temp = T.links.get(Entities.SKILL).get(0);
 				});
 		
 		L.addSkill(SoftwareDev);
-		String Lskill = L.links.get(Entities.SKILL).get(0).name;
-		assertEquals(Lskill, "Software Development");
+		String Lskill = L.links.get(Entities.SKILL).get(0);
+		assertEquals(Lskill, "2");
 		L.removeSkill(SoftwareDev);
 		assertThrows(IndexOutOfBoundsException.class, 
 				()-> {
-					temp = L.links.get(Entities.SKILL).get(0).name;
+					temp = L.links.get(Entities.SKILL).get(0);
 				});
 		
 		//// Projects Tests ////
 		C.addProject(VE);
-		String Cproject = C.links.get(Entities.PROJECT).get(0).name;
-		assertEquals(Cproject, "Virtual Exhibition");
-		Cproject = C.links.get(Entities.PROJECT).get(0).page.description;
-		assertEquals(Cproject, "Virtual Exhibition Project");
+		String Cproject = C.links.get(Entities.PROJECT).get(0);
+		assertEquals(Cproject, "1");
 		C.removeProject(VE);
 		assertThrows(IndexOutOfBoundsException.class,
 				()-> {
-					temp = C.links.get(Entities.PROJECT).get(0).name;
+					temp = C.links.get(Entities.PROJECT).get(0);
 				});
 		
 		T.addProject(Bombe);
-		String Tproject = T.links.get(Entities.PROJECT).get(0).name;
-		assertEquals(Tproject, "Bombe Enigma Decoder");
-		Tproject = T.links.get(Entities.PROJECT).get(0).page.description;
-		assertEquals(Tproject, "Bombe Enigma Decoder Project");
+		String Tproject = T.links.get(Entities.PROJECT).get(0);
+		assertEquals(Tproject, "2");
 		T.removeProject(Bombe);
 		assertThrows(IndexOutOfBoundsException.class,
 				()-> {
-					temp = T.links.get(Entities.PROJECT).get(0).name;
+					temp = T.links.get(Entities.PROJECT).get(0);
 				});
 		
 		L.addProject(LK);
-		String Lproject = L.links.get(Entities.PROJECT).get(0).name;
-		assertEquals(Lproject, "Linux Kernel");
-		Lproject = L.links.get(Entities.PROJECT).get(0).page.description;
-		assertEquals(Lproject, "Linux Kernel Project");
+		String Lproject = L.links.get(Entities.PROJECT).get(0);
+		assertEquals(Lproject, "3");
 		L.removeProject(LK);
 		assertThrows(IndexOutOfBoundsException.class,
 				()-> {
-					temp = L.links.get(Entities.PROJECT).get(0).name;
+					temp = L.links.get(Entities.PROJECT).get(0);
 				});
 		
 		//// Apply & Job Posting Tests ////
 		CC.addJobPosting(CCJob);
-		String CCjobname = CC.links.get(Entities.JOBPOSTING).get(0).name;
-		assertEquals(CCjobname, "Student Programmer");
+		String CCjobname = CC.links.get(Entities.JOBPOSTING).get(0);
+		assertEquals(CCjobname, "1");
 		C.apply(CCJob);
-		CCjobname = CCJob.links.get(Entities.APPLICANTS).get(0).name;
-		assertEquals(CCjobname, "Cooper Hendrix");
+		CCjobname = CCJob.links.get(Entities.APPLICANTS).get(0);
+		assertEquals(CCjobname, "1");
 		CC.addEmployee(C);
-		CCjobname = CC.links.get(Entities.EMPLOYEES).get(0).name;
-		assertEquals(CCjobname, "Cooper Hendrix");
+		CCjobname = CC.links.get(Entities.EMPLOYEES).get(0);
+		assertEquals(CCjobname, "1");
 		CC.removeJobPosting(CCJob);
 		assertThrows(IndexOutOfBoundsException.class,
 				()-> {
-					temp = CC.links.get(Entities.JOBPOSTING).get(0).name;
+					temp = CC.links.get(Entities.JOBPOSTING).get(0);
 				});
 		
 		BP.addJobPosting(BPJob);
-		String BPjobname = BP.links.get(Entities.JOBPOSTING).get(0).name;
-		assertEquals(BPjobname, "Codebreaker");
+		String BPjobname = BP.links.get(Entities.JOBPOSTING).get(0);
+		assertEquals(BPjobname, "2");
 		T.apply(BPJob);
-		BPjobname = BPJob.links.get(Entities.APPLICANTS).get(0).name;
-		assertEquals(BPjobname, "Alan Turing");
+		BPjobname = BPJob.links.get(Entities.APPLICANTS).get(0);
+		assertEquals(BPjobname, "2");
 		BP.addEmployee(T);
-		BPjobname = BP.links.get(Entities.EMPLOYEES).get(0).name;
-		assertEquals(BPjobname, "Alan Turing");
+		BPjobname = BP.links.get(Entities.EMPLOYEES).get(0);
+		assertEquals(BPjobname, "2");
 		BP.removeJobPosting(BPJob);
 		assertThrows(IndexOutOfBoundsException.class,
 				()-> {
-					temp = BP.links.get(Entities.JOBPOSTING).get(0).name;
+					temp = BP.links.get(Entities.JOBPOSTING).get(0);
 				});
 		
 		LF.addJobPosting(LFJob);
-		String LFjobname = LF.links.get(Entities.JOBPOSTING).get(0).name;
-		assertEquals(LFjobname, "Linux Kernel Developer");
+		String LFjobname = LF.links.get(Entities.JOBPOSTING).get(0);
+		assertEquals(LFjobname, "3");
 		L.apply(LFJob);
-		LFjobname = LFJob.links.get(Entities.APPLICANTS).get(0).name;
-		assertEquals(LFjobname, "Linus Torvalds");
+		LFjobname = LFJob.links.get(Entities.APPLICANTS).get(0);
+		assertEquals(LFjobname, "3");
 		LF.addEmployee(L);
-		LFjobname = LF.links.get(Entities.EMPLOYEES).get(0).name;
-		assertEquals(LFjobname, "Linus Torvalds");
+		LFjobname = LF.links.get(Entities.EMPLOYEES).get(0);
+		assertEquals(LFjobname, "3");
 		LF.removeJobPosting(LFJob);
 		assertThrows(IndexOutOfBoundsException.class,
 				()-> {
-					temp = LF.links.get(Entities.JOBPOSTING).get(0).name;
+					temp = LF.links.get(Entities.JOBPOSTING).get(0);
 				});
 		
 		//// Page Permissions Testing ////
 		CPage.addPermission(C);
-		String CPagePermission = CPage.permissions.get(Permissions.WRITE).get(0).name;
-		assertEquals(CPagePermission, "Cooper Hendrix");
+		String CPagePermission = CPage.permissions.get(Permissions.WRITE).get(0);
+		assertEquals(CPagePermission, "1");
 		assertEquals(CPage.hasPermission(C), true);
 		CPage.removePermission(C);
 		assertEquals(CPage.hasPermission(C), false);
 		assertThrows(IndexOutOfBoundsException.class,
 				()-> {
-					temp = CPage.permissions.get(Permissions.WRITE).get(0).name;
+					temp = CPage.permissions.get(Permissions.WRITE).get(0);
 				});
 		
-		String storeconfirm = C.storeData(server.client, server.uriBase);
+		
+		
+		String storeconfirm = C.storeData(server.client);
 		System.out.println(storeconfirm);
+		storeconfirm = CC.storeData(server.client);
+		System.out.println(storeconfirm);
+		storeconfirm = CCJob.storeData(server.client);
+		System.out.println(storeconfirm);
+		storeconfirm = CNews.storeData(server.client);
+		System.out.println(storeconfirm);
+		storeconfirm = VE.storeData(server.client);
+		System.out.println(storeconfirm);
+		storeconfirm = Cello.storeData(server.client);
+		System.out.println(storeconfirm);
+		
+		C.retrieveData(server.client);
 	}
 
 }
