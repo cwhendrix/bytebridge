@@ -57,7 +57,7 @@ public class News extends Entity
 				.uri("http://localhost:9000/v1/byteBridge/News/"+this.id)
 				.retrieve()
 				.body(Response.class);
-		System.out.println(retrieved.data);
+		//System.out.println(retrieved.data);
 		ObjectMapper objectmapper = new ObjectMapper();
 		
 		try

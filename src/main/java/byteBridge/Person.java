@@ -95,15 +95,13 @@ public class Person extends Entity
 				.uri("http://localhost:9000/v1/byteBridge/Person/"+this.id)
 				.retrieve()
 				.body(Response.class);
-		System.out.println(retrieved.data);
+		//System.out.println(retrieved.data);
 		ObjectMapper objectmapper = new ObjectMapper();
 		Person newPerson = null;
 		try
 		{
 			newPerson = objectmapper.treeToValue(retrieved.data, Person.class);
-			// System.out.println(newPerson.id);
 			setId(newPerson.getId());
-			// System.out.println(this.id);
 			setName(newPerson.getName());
 			setOccupation(newPerson.getOccupation());
 			setLinks(newPerson.getLinks());

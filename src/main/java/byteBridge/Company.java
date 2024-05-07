@@ -79,7 +79,7 @@ public class Company extends Entity
 				.uri("http://localhost:9000/v1/byteBridge/Company/"+this.id)
 				.retrieve()
 				.body(Response.class);
-		System.out.println(retrieved.data);
+		// System.out.println(retrieved.data);
 		ObjectMapper objectmapper = new ObjectMapper();
 		
 		try

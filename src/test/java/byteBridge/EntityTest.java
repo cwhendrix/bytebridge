@@ -46,7 +46,6 @@ class EntityTest
 	News TNews;
 	News LNews;
 	String temp;
-	ServerHandler server;
 	
 	@BeforeEach
 	void setUp() throws Exception
@@ -92,8 +91,6 @@ class EntityTest
 		
 		TestPage = new Page("Test Page", null);
 		RESTTest = new Person("4", "Person", TestPage, "Occupation");
-		
-		server = new ServerHandler();
 		
 	}
 
@@ -307,55 +304,69 @@ class EntityTest
 		
 		
 		//// REST Testing ////
-		String storeconfirm = C.storeData(server.client);
-		storeconfirm = C.storeData(server.client);
+		String storeconfirm = C.storeData(byteBridge.serverhandler.client);
+		storeconfirm = C.storeData(byteBridge.serverhandler.client);
 		System.out.println(storeconfirm);
-		storeconfirm = CC.storeData(server.client);
+		storeconfirm = CC.storeData(byteBridge.serverhandler.client);
 		System.out.println(storeconfirm);
-		storeconfirm = CCJob.storeData(server.client);
+		storeconfirm = CCJob.storeData(byteBridge.serverhandler.client);
 		System.out.println(storeconfirm);
-		storeconfirm = CNews.storeData(server.client);
+		storeconfirm = CNews.storeData(byteBridge.serverhandler.client);
 		System.out.println(storeconfirm);
-		storeconfirm = VE.storeData(server.client);
+		storeconfirm = VE.storeData(byteBridge.serverhandler.client);
 		System.out.println(storeconfirm);
-		storeconfirm = Cello.storeData(server.client);
+		storeconfirm = Cello.storeData(byteBridge.serverhandler.client);
 		System.out.println(storeconfirm);
 		
-		C.retrieveData(server.client);
+		C.retrieveData(byteBridge.serverhandler.client);
 		C.setId("15");
-		C.updateData(server.client);
+		C.updateData(byteBridge.serverhandler.client);
 		C.setId("1");
-		C.updateData(server.client);
+		C.updateData(byteBridge.serverhandler.client);
 		
-		CC.retrieveData(server.client);
+		CC.retrieveData(byteBridge.serverhandler.client);
 		CC.setId("15");
-		CC.updateData(server.client);
+		CC.updateData(byteBridge.serverhandler.client);
 		CC.setId("1");
-		CC.updateData(server.client);
+		CC.updateData(byteBridge.serverhandler.client);
 		
-		CCJob.retrieveData(server.client);
+		CCJob.retrieveData(byteBridge.serverhandler.client);
 		CCJob.setId("15");
-		CCJob.updateData(server.client);
+		CCJob.updateData(byteBridge.serverhandler.client);
 		CCJob.setId("1");
-		CCJob.updateData(server.client);
+		CCJob.updateData(byteBridge.serverhandler.client);
 		
-		CNews.retrieveData(server.client);
+		CNews.retrieveData(byteBridge.serverhandler.client);
 		CNews.setId("15");
-		CNews.updateData(server.client);
+		CNews.updateData(byteBridge.serverhandler.client);
 		CNews.setId("1");
-		CNews.updateData(server.client);
+		CNews.updateData(byteBridge.serverhandler.client);
 		
-		VE.retrieveData(server.client);
+		VE.retrieveData(byteBridge.serverhandler.client);
 		VE.setId("15");
-		VE.updateData(server.client);
+		VE.updateData(byteBridge.serverhandler.client);
 		VE.setId("1");
-		VE.updateData(server.client);
+		VE.updateData(byteBridge.serverhandler.client);
 		
-		Cello.retrieveData(server.client);
+		Cello.retrieveData(byteBridge.serverhandler.client);
 		Cello.setId("15");
-		Cello.updateData(server.client);
+		Cello.updateData(byteBridge.serverhandler.client);
 		Cello.setId("1");
-		Cello.updateData(server.client);
+		Cello.updateData(byteBridge.serverhandler.client);
+		
+		Entity tempEntity;
+		tempEntity = byteBridge.retrievePerson("1");
+		assertEquals(C.getId(), tempEntity.getId());
+		tempEntity = byteBridge.retrieveCompany("1");
+		assertEquals(CC.getId(), tempEntity.getId());
+		tempEntity = byteBridge.retrieveJob("1");
+		assertEquals(CCJob.getId(), tempEntity.getId());
+		tempEntity = byteBridge.retrieveNews("1");
+		assertEquals(CNews.getId(), tempEntity.getId());
+		tempEntity = byteBridge.retrieveProject("1");
+		assertEquals(VE.getId(), tempEntity.getId());
+		tempEntity = byteBridge.retrieveSkill("1");
+		assertEquals(Cello.getId(), tempEntity.getId());
 		
 		
 		//// Job Recommender Testing ////
