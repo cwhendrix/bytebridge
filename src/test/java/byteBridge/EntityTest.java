@@ -15,11 +15,9 @@ class EntityTest
 	Person C;
 	Person T;
 	Person L;
-	Person RESTTest;
 	Page CPage;
 	Page TPage;
 	Page LPage;
-	Page TestPage;
 	Company CC;
 	Company BP;
 	Company LF;
@@ -87,9 +85,6 @@ class EntityTest
 		CNews = new News("1", "Performed At Norton Center", null);
 		TNews = new News("2", "Cracked Enigma Code", null);
 		LNews = new News("3", "Made Linux Kernel", null);
-		
-		TestPage = new Page("Test Page", null);
-		RESTTest = new Person("4", "Person", TestPage, "Occupation");
 		
 	}
 
@@ -367,6 +362,41 @@ class EntityTest
 		tempEntity = byteBridge.retrieveSkill("1");
 		assertEquals(Cello.getId(), tempEntity.getId());
 		
+		storeconfirm = T.storeData(byteBridge.serverhandler.client);
+		storeconfirm = L.storeData(byteBridge.serverhandler.client);
+		ArrayList<Person> AllPeople = byteBridge.retrieveAllUsers();
+		assertEquals(AllPeople.get(1).getId(), "2");
+		assertEquals(AllPeople.get(2).getId(), "3");
+		
+		storeconfirm = BP.storeData(byteBridge.serverhandler.client);
+		storeconfirm = LF.storeData(byteBridge.serverhandler.client);
+		ArrayList<Company> AllCompanies = byteBridge.retrieveAllCompanies();
+		assertEquals(AllCompanies.get(1).getId(), "2");
+		assertEquals(AllCompanies.get(2).getId(), "3");
+		
+		storeconfirm = BPJob.storeData(byteBridge.serverhandler.client);
+		storeconfirm = LFJob.storeData(byteBridge.serverhandler.client);
+		ArrayList<JobPosting> AllJobs = byteBridge.retrieveAllJobs();
+		assertEquals(AllJobs.get(1).getId(), "2");
+		assertEquals(AllJobs.get(2).getId(), "3");
+		
+		storeconfirm = TNews.storeData(byteBridge.serverhandler.client);
+		storeconfirm = LNews.storeData(byteBridge.serverhandler.client);
+		ArrayList<News> AllNews = byteBridge.retrieveAllNews();
+		assertEquals(AllNews.get(1).getId(), "2");
+		assertEquals(AllNews.get(2).getId(), "3");
+		
+		storeconfirm = Bombe.storeData(byteBridge.serverhandler.client);
+		storeconfirm = LK.storeData(byteBridge.serverhandler.client);
+		ArrayList<Project> AllProjects = byteBridge.retrieveAllProjects();
+		assertEquals(AllProjects.get(1).getId(), "2");
+		assertEquals(AllProjects.get(2).getId(), "3");
+		
+		storeconfirm = Cryptography.storeData(byteBridge.serverhandler.client);
+		storeconfirm = SoftwareDev.storeData(byteBridge.serverhandler.client);
+		ArrayList<Skill> AllSkills = byteBridge.retrieveAllSkills();
+		assertEquals(AllSkills.get(1).getId(), "2");
+		assertEquals(AllSkills.get(2).getId(), "3");
 		
 		//// Job Recommender Testing ////
 		CCJob.recommender.setEveryone(true);

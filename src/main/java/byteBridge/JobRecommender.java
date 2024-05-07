@@ -9,7 +9,8 @@ public class JobRecommender
 	boolean everyone = true;	// default recommendation
 	boolean skills = false;		// Only those with matched skills
 	boolean title = true;	// Only those who currently have the same job title
-	// more boolean flags added as needed
+	// more boolean flags added as needed to implement other recommendation types...
+	
 	ArrayList<String> recommended;
 	JobPosting job;
 	
@@ -21,6 +22,7 @@ public class JobRecommender
 		this.job = job;
 	}
 
+	@SuppressWarnings("unused")
 	private Person findPerson(String id) {
 		ByteBridgeState instance = ByteBridgeState.getInstance();
 		for (int i=0; i<instance.AllUsers.size(); i++) {
@@ -71,7 +73,7 @@ public class JobRecommender
 			}
 		}
 		
-		//// more can be added and toggled as wished ////
+		//// Handling for additional recommendation types added here as a part of the switch.... ////
 	}
 
 	/**

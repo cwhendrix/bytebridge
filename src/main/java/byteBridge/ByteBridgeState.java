@@ -17,12 +17,22 @@ public class ByteBridgeState
 	private static ByteBridgeState state = null;
 	ServerHandler serverhandler;
 	ArrayList<Person> AllUsers;
+	ArrayList<Company> AllCompanies;
+	ArrayList<JobPosting> AllJobs;
+	ArrayList<News> AllNews;
+	ArrayList<Project> AllProjects;
+	ArrayList<Skill> AllSkills;
 	
 	private ByteBridgeState()
 	{
 		state = this;
 		serverhandler = new ServerHandler();
 		AllUsers = new ArrayList<Person>();
+		AllCompanies = new ArrayList<Company>();
+		AllJobs = new ArrayList<JobPosting>();
+		AllNews = new ArrayList<News>();
+		AllProjects = new ArrayList<Project>();
+		AllSkills = new ArrayList<Skill>();
 	}
 	
 	public static ByteBridgeState getInstance() {
@@ -35,6 +45,21 @@ public class ByteBridgeState
 	public void newPerson(Person user) {
 		AllUsers.add(user);
 	}
+	public void newCompany(Company company) {
+		AllCompanies.add(company);
+	}
+	public void newJobs(JobPosting job) {
+		AllJobs.add(job);
+	}
+	public void newNews(News news) {
+		AllNews.add(news);
+	}
+	public void newProject(Project project) {
+		AllProjects.add(project);
+	}
+	public void newSkill(Skill skill) {
+		AllSkills.add(skill);
+	}
 	
 	//// REST Server Functions: Retrieving objects via ID
 	// All return null if object not found
@@ -43,7 +68,7 @@ public class ByteBridgeState
 				.uri("http://localhost:9000/v1/byteBridge/Person/"+id)
 				.retrieve()
 				.body(Response.class);
-		System.out.println(retrieved.data);
+		// System.out.println(retrieved.data);
 		ObjectMapper objectmapper = new ObjectMapper();
 		Person newPerson = null;
 		try
@@ -67,10 +92,10 @@ public class ByteBridgeState
 				.retrieve()
 				.body(Response.class);
 		ObjectMapper objectmapper = new ObjectMapper();
-		
+		Company newCompany = null;
 		try
 		{
-			Company newCompany = objectmapper.treeToValue(retrieved.data, Company.class);
+			newCompany = objectmapper.treeToValue(retrieved.data, Company.class);
 			//System.out.println(newCompany.id);
 			return newCompany;
 		} catch (JsonMappingException e)
@@ -173,11 +198,11 @@ public class ByteBridgeState
 		return null;
 	}
 	
-	////Convenience function to retrieve all the users from the REST Server
+	////Convenience functions to retrieve all the objects of a given Class from the REST Server
 	public ArrayList<Person> retrieveAllUsers() {
 		ArrayList<Person> users = new ArrayList<Person>();
 		Person tempPerson;
-		for (int i=0; i<AllUsers.size(); i++) {
+		for (int i=1; i<AllUsers.size()+1; i++) {
 			tempPerson = retrievePerson(Integer.toString(i));
 			if (tempPerson != null) {
 				users.add(tempPerson);
@@ -185,5 +210,59 @@ public class ByteBridgeState
 		}
 		return users;
 	}
-
+	public ArrayList<Company> retrieveAllCompanies() {
+		ArrayList<Company> companies = new ArrayList<Company>();
+		Company tempCompany;
+		for (int i=1; i<AllCompanies.size()+1; i++) {
+			tempCompany = retrieveCompany(Integer.toString(i));
+			if (tempCompany != null) {
+				companies.add(tempCompany);
+			}
+		}
+		return companies;
+	}
+	public ArrayList<JobPosting> retrieveAllJobs() {
+		ArrayList<JobPosting> jobs = new ArrayList<JobPosting>();
+		JobPosting tempJob;
+		for (int i=1; i<AllJobs.size()+1; i++) {
+			tempJob = retrieveJob(Integer.toString(i));
+			if (tempJob != null) {
+				jobs.add(tempJob);
+			}
+		}
+		return jobs;
+	}
+	public ArrayList<News> retrieveAllNews() {
+		ArrayList<News> news = new ArrayList<News>();
+		News tempNews;
+		for (int i=1; i<AllNews.size()+1; i++) {
+			tempNews = retrieveNews(Integer.toString(i));
+			if (tempNews != null) {
+				news.add(tempNews);
+			}
+		}
+		return news;
+	}
+	public ArrayList<Project> retrieveAllProjects() {
+		ArrayList<Project> projects = new ArrayList<Project>();
+		Project tempProject;
+		for (int i=1; i<AllProjects.size()+1; i++) {
+			tempProject = retrieveProject(Integer.toString(i));
+			if (tempProject != null) {
+				projects.add(tempProject);
+			}
+		}
+		return projects;
+	}
+	public ArrayList<Skill> retrieveAllSkills() {
+		ArrayList<Skill> skills = new ArrayList<Skill>();
+		Skill tempSkill;
+		for (int i=1; i<AllProjects.size()+1; i++) {
+			tempSkill = retrieveSkill(Integer.toString(i));
+			if (tempSkill != null) {
+				skills.add(tempSkill);
+			}
+		}
+		return skills;
+	}
 }

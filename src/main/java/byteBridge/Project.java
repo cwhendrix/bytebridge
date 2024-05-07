@@ -31,6 +31,8 @@ public class Project extends Entity
 			ArrayList<String> temp = new ArrayList<String>();
 			links.put(link, temp);
 		}
+		ByteBridgeState instance = ByteBridgeState.getInstance();
+		instance.newProject(this);
 	}
 	@Override
 	public String storeData(RestClient client) {

@@ -31,6 +31,8 @@ public class Skill extends Entity
 			ArrayList<String> temp = new ArrayList<String>();
 			links.put(link, temp);
 		}
+		ByteBridgeState instance = ByteBridgeState.getInstance();
+		instance.newSkill(this);
 	}
 	@Override
 	public String storeData(RestClient client) {

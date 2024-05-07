@@ -36,6 +36,8 @@ public class JobPosting extends Entity
 			links.put(link, temp);
 		}
 		recommender = new JobRecommender(this);
+		ByteBridgeState instance = ByteBridgeState.getInstance();
+		instance.newJobs(this);
 	}
 	public void addApplicant(String applicant) {
 		ArrayList<String> applicants = links.get(Entities.APPLICANTS);

@@ -30,6 +30,8 @@ public class Company extends Entity
 			ArrayList<String> temp = new ArrayList<String>();
 			links.put(link, temp);
 		}
+		ByteBridgeState instance = ByteBridgeState.getInstance();
+		instance.newCompany(this);
 	}
 	public void addEmployee(Person employee) {
 		ArrayList<String> employees = links.get(Entities.EMPLOYEES);

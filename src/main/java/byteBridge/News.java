@@ -31,6 +31,8 @@ public class News extends Entity
 			ArrayList<String> temp = new ArrayList<String>();
 			links.put(link, temp);
 		}
+		ByteBridgeState instance = ByteBridgeState.getInstance();
+		instance.newNews(this);
 	}
 	@Override
 	public String storeData(RestClient client) {
