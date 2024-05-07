@@ -173,6 +173,17 @@ public class ByteBridgeState
 		return null;
 	}
 	
-	///// Not an entity; the ByteBridgeState does not need to be stored on the server
+	////Convenience function to retrieve all the users from the REST Server
+	public ArrayList<Person> retrieveAllUsers() {
+		ArrayList<Person> users = new ArrayList<Person>();
+		Person tempPerson;
+		for (int i=0; i<AllUsers.size(); i++) {
+			tempPerson = retrievePerson(Integer.toString(i));
+			if (tempPerson != null) {
+				users.add(tempPerson);
+			}
+		}
+		return users;
+	}
 
 }

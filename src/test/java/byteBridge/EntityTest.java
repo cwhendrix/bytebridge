@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
 
 import byteBridge.Entity.Entities;
 import byteBridge.Page.Permissions;

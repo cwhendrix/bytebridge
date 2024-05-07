@@ -1,9 +1,7 @@
 package byteBridge;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 public class Page
@@ -38,8 +36,9 @@ public class Page
 			writepermissions.add(accessor.getId());
 		}
 	}
-	public void changePermissions(Entity accessor, Permissions permission) {
-		if (permissions.get(accessor.getId()) != null) {
+	public void changePermissions(Entity accessor, Permissions permissionToGive, Permissions permissionToTake) {
+		ArrayList<String> permsToChange = permissions.get(permissionToTake);
+		if (permsToChange.contains(accessor.getId())) {
 			removePermission(accessor);
 		}
 		addPermission(accessor);

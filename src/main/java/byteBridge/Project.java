@@ -2,7 +2,6 @@ package byteBridge;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import byteBridge.Entity.Entities;
 
 public class Project extends Entity
 {
@@ -34,6 +32,7 @@ public class Project extends Entity
 			links.put(link, temp);
 		}
 	}
+	@Override
 	public String storeData(RestClient client) {
 		String projectpost = client.post()
 				.uri("http://localhost:9000/v1/byteBridge/Project/"+this.id)
@@ -43,6 +42,7 @@ public class Project extends Entity
 				.body(String.class);
 			return projectpost;
 	}
+	@Override
 	public String updateData(RestClient client) {
 		String projectpost = client.put()
 				.uri("http://localhost:9000/v1/byteBridge/Project/"+this.id)
@@ -52,6 +52,7 @@ public class Project extends Entity
 				.body(String.class);
 			return projectpost;
 	}
+	@Override
 	public void retrieveData(RestClient client) {
 		Response retrieved = client.get()
 				.uri("http://localhost:9000/v1/byteBridge/Project/"+this.id)

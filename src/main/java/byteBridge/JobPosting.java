@@ -2,7 +2,6 @@ package byteBridge;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
@@ -16,6 +15,9 @@ public class JobPosting extends Entity
 {
 
 	JobRecommender recommender;
+	
+	// This gets used by Jackson, so Idk why this warning persists but i'm gonna quiet it
+	@SuppressWarnings("unused")
 	private JobPosting() {}
 	
 	private record Response(String request, 
@@ -43,6 +45,7 @@ public class JobPosting extends Entity
 		ArrayList<String> skills = links.get(Entities.SKILL);
 		skills.add(skill);
 	}
+	@Override
 	public String storeData(RestClient client) {
 		String jobpost = client.post()
 				.uri("http://localhost:9000/v1/byteBridge/JobPosting/"+this.id)
@@ -52,6 +55,7 @@ public class JobPosting extends Entity
 				.body(String.class);
 			return jobpost;
 	}
+	@Override
 	public String updateData(RestClient client) {
 		String jobpost = client.put()
 				.uri("http://localhost:9000/v1/byteBridge/JobPosting/"+this.id)
@@ -61,6 +65,7 @@ public class JobPosting extends Entity
 				.body(String.class);
 			return jobpost;
 	}
+	@Override
 	public void retrieveData(RestClient client) {
 		Response retrieved = client.get()
 				.uri("http://localhost:9000/v1/byteBridge/JobPosting/"+this.id)
@@ -87,10 +92,12 @@ public class JobPosting extends Entity
 			e.printStackTrace();
 		}
 	}
+	/*
 	private void setRecommender(JobRecommender recommender) {
 		this.recommender = recommender;
 	}
 	private JobRecommender getRecommender() {
 		return this.recommender;
 	}
+	*/
 }

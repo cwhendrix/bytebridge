@@ -21,6 +21,7 @@ public class ServerHandler
 				.body(byteBridge)
 				.retrieve()
 				.body(String.class);
+		System.out.println(bytepost);
 		
 		Team Person = new Team("Person", "Person", uriBase+"/Person");
 		String personpost = client.post()
@@ -29,6 +30,7 @@ public class ServerHandler
 				.body(Person)
 				.retrieve()
 				.body(String.class);
+		System.out.println(personpost);
 		
 		Team Company = new Team("Company", "Company", uriBase+"/Company");
 		String teampost = client.post()
@@ -37,6 +39,7 @@ public class ServerHandler
 				.body(Company)
 				.retrieve()
 				.body(String.class);
+		System.out.println(teampost);
 		
 		Team Project = new Team("Project", "Project", uriBase+"/Project");
 		String projectpost = client.post()
@@ -45,6 +48,7 @@ public class ServerHandler
 				.body(Project)
 				.retrieve()
 				.body(String.class);
+		System.out.println(projectpost);
 		
 		Team JobPosting = new Team("JobPosting", "JobPosting", uriBase+"/JobPosting");
 		String jobpost = client.post()
@@ -53,6 +57,7 @@ public class ServerHandler
 				.body(JobPosting)
 				.retrieve()
 				.body(String.class);
+		System.out.println(jobpost);
 		
 		Team News = new Team("News", "News", uriBase+"/News");
 		String newspost = client.post()
@@ -61,6 +66,7 @@ public class ServerHandler
 				.body(News)
 				.retrieve()
 				.body(String.class);
+		System.out.println(newspost);
 		
 		Team Skill = new Team("Skill", "Skill", uriBase+"/Skill");
 		String skillpost = client.post()
@@ -69,23 +75,6 @@ public class ServerHandler
 				.body(Skill)
 				.retrieve()
 				.body(String.class);
-	}
-	public void storeByteBridge() {
-		
-	}
-	public void receiveByteBridge() {
-		
-	}
-	public void storeEntity() {
-		
-	}
-	public Entity retrieveEntity() {
-		return null;
-	}
-	public void storeObject(Entity entity) {
-		
-	}
-	public Entity retrieveObject() {
-		return null;
+		System.out.println(skillpost);
 	}
 }

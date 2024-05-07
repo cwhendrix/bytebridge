@@ -20,7 +20,7 @@ public class JobRecommender
 		recommended = new ArrayList<String>();
 		this.job = job;
 	}
-	
+
 	private Person findPerson(String id) {
 		ByteBridgeState instance = ByteBridgeState.getInstance();
 		for (int i=0; i<instance.AllUsers.size(); i++) {
@@ -77,7 +77,7 @@ public class JobRecommender
 	/**
 	 * @return the everyone
 	 */
-	public boolean isEveryone()
+	public boolean getEveryone()
 	{
 		return everyone;
 	}
@@ -93,7 +93,7 @@ public class JobRecommender
 	/**
 	 * @return the skills
 	 */
-	public boolean isSkills()
+	public boolean getSkills()
 	{
 		return skills;
 	}
@@ -109,7 +109,7 @@ public class JobRecommender
 	/**
 	 * @return the followers
 	 */
-	public boolean isTitle()
+	public boolean getTitle()
 	{
 		return title;
 	}
@@ -136,6 +136,22 @@ public class JobRecommender
 	public void setRecommended(ArrayList<String> recommended)
 	{
 		this.recommended = recommended;
+	}
+
+	/**
+	 * @return the job
+	 */
+	public JobPosting getJob()
+	{
+		return job;
+	}
+
+	/**
+	 * @param job the job to set
+	 */
+	public void setJob(JobPosting job)
+	{
+		this.job = job;
 	}
 	
 

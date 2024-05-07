@@ -1,11 +1,8 @@
 package byteBridge;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.web.client.RestClient;
 
 public class Entity
 {
@@ -29,14 +26,13 @@ public class Entity
 	
 	public Entity() {}
 	
-	public void retrieveData() {
-		
+	public void retrieveData(RestClient client) {
 	}
-	public void storeData() {
-		
+	public String storeData(RestClient client) {
+		return null;
 	}
-	public void updateData() {
-		
+	public String updateData(RestClient client) {
+		return null;
 	}
 	/**
 	 * @return the id
@@ -94,4 +90,5 @@ public class Entity
 	{
 		this.links = links;
 	}
+
 }

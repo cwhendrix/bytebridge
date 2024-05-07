@@ -1,7 +1,6 @@
 package byteBridge;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import org.springframework.web.client.RestClient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -72,6 +71,7 @@ public class Person extends Entity
 		ArrayList<String> following = links.get(Entities.FOLLOWING);
 		following.add(newCompany.id);
 	}
+	@Override
 	public String storeData(RestClient client) {
 		String personpost = client.post()
 			.uri("http://localhost:9000/v1/byteBridge/Person/"+this.id)
@@ -81,6 +81,7 @@ public class Person extends Entity
 			.body(String.class);
 		return personpost;
 	}
+	@Override
 	public String updateData(RestClient client) {
 		String personpost = client.put()
 				.uri("http://localhost:9000/v1/byteBridge/Person/"+this.id)
@@ -90,6 +91,7 @@ public class Person extends Entity
 				.body(String.class);
 			return personpost;
 	}
+	@Override
 	public void retrieveData(RestClient client) {
 		Response retrieved = client.get()
 				.uri("http://localhost:9000/v1/byteBridge/Person/"+this.id)

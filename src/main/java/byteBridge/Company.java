@@ -1,7 +1,6 @@
 package byteBridge;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
@@ -56,6 +55,7 @@ public class Company extends Entity
 		ArrayList<String> jobs = links.get(Entities.JOBPOSTING);
 		jobs.remove(remJob.id);
 	}
+	@Override
 	public String storeData(RestClient client) {
 		String companypost = client.post()
 				.uri("http://localhost:9000/v1/byteBridge/Company/"+this.id)
@@ -65,6 +65,7 @@ public class Company extends Entity
 				.body(String.class);
 			return companypost;
 	}
+	@Override
 	public String updateData(RestClient client) {
 		String companypost = client.put()
 				.uri("http://localhost:9000/v1/byteBridge/Company/"+this.id)
@@ -74,6 +75,7 @@ public class Company extends Entity
 				.body(String.class);
 			return companypost;
 	}
+	@Override
 	public void retrieveData(RestClient client) {
 		Response retrieved = client.get()
 				.uri("http://localhost:9000/v1/byteBridge/Company/"+this.id)
