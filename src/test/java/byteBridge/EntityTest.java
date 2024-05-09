@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import byteBridge.Entity.Entities;
+import byteBridge.JobRecommender.AdvertFilters;
 import byteBridge.Page.Permissions;
 
 class EntityTest
@@ -399,7 +400,7 @@ class EntityTest
 		assertEquals(AllSkills.get(2).getId(), "3");
 		
 		//// Job Recommender Testing ////
-		CCJob.recommender.setEveryone(true);
+		CCJob.recommender.setFilter(AdvertFilters.EVERYONE);
 		CCJob.recommender.addRecommendations();
 		ArrayList<String> CCJobRecommends = CCJob.recommender.recommended;
 		assertEquals("1", CCJobRecommends.get(0));
@@ -408,8 +409,7 @@ class EntityTest
 		
 		BPJob.addSkills(Cryptography.id);
 		T.addSkill(Cryptography);
-		BPJob.recommender.setSkills(true);
-		BPJob.recommender.setEveryone(false);
+		BPJob.recommender.setFilter(AdvertFilters.SKILLS);
 		BPJob.recommender.addRecommendations();
 		ArrayList<String> BPJobRecommends = BPJob.recommender.recommended;
 		assertEquals("2", BPJobRecommends.get(0));
@@ -418,8 +418,7 @@ class EntityTest
 					temp = BPJobRecommends.get(1);
 				});
 		
-		LFJob.recommender.setEveryone(false);
-		LFJob.recommender.setTitle(true);
+		LFJob.recommender.setFilter(AdvertFilters.TITLES);
 		LFJob.recommender.addRecommendations();
 		ArrayList<String> LFJobRecommends = LFJob.recommender.recommended;
 		assertEquals("3", LFJobRecommends.get(0));

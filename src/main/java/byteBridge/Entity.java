@@ -7,7 +7,7 @@ import org.springframework.web.client.RestClient;
 public class Entity
 {
 	
-	enum Entities {
+	public enum Entities {
 	    FOLLOWING,
 	    COMPANY,
 	    PROJECT,
